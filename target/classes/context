@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+    <bean id="app" class="ru.nik.App">
+        <constructor-arg ref="client"/>
+        <constructor-arg ref="consoleEventLogger"/>
+    </bean>
+    <bean id="client" class="ru.nik.Client">
+
+        <constructor-arg value="Ima"/>
+        <constructor-arg value="Login"/>
+    </bean>
+    <bean id="consoleEventLogger" class="ru.nik.ConsoleEventLogger"/>
+    <bean id="event" class="ru.nik.Event" scope="prototype">
+        <constructor-arg value="Den"/>
+    </bean>
+    <bean id="dateaFormat" class="java.text.DateFormat"
+    factory-method="getDateInstance"/>
+</beans>
