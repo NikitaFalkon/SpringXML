@@ -7,33 +7,7 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
-    <context:property-placeholder location="classpath:client.properties"/>
-
-    <bean id="app" class="ru.nik.App">
-        <constructor-arg name="clients1">
-                <list>
-                    <ref bean="client"/>
-                    <ref bean="client"/>
-                </list>
-        </constructor-arg>
-        <constructor-arg ref="cacheEventLogger"/>
-
-    </bean>
-    <bean id="client" class="ru.nik.Client" scope="prototype">
-
-        <property name="name" value="${Client.name}"/>
-        <property name="login" value="${Client.login}"/>
-    </bean>
     <bean id="consoleEventLogger" class="ru.nik.ConsoleEventLogger"/>
-    <bean id="event" class="ru.nik.Event" scope="prototype">
-        <constructor-arg value="June"/>
-    </bean>
-    <bean id="event1" class="ru.nik.Event" scope="prototype">
-        <constructor-arg value="Jule"/>
-    </bean>
-    <bean id="event2" class="ru.nik.Event" scope="prototype">
-        <constructor-arg value="Sept"/>
-    </bean>
     <bean id="fileEventLogger" class="ru.nik.FileEventLogger" init-method="init">
         <constructor-arg value="C://FilesForJava//Text.txt"/>
     </bean>

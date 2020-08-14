@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<beans  xmlns="http://www.springframework.org/schema/beans"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:context="http://www.springframework.org/schema/context"
-        xsi:schemaLocation="http://www.springframework.org/schema/beans
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+    <context:property-placeholder location="classpath:client.properties"/>
+    <import resource="loggers"/>
     <bean id="app" class="ru.nik.App">
-        <constructor-arg ref="client"/>
-        <constructor-arg ref="consoleEventLogger"/>
+        <constructor-arg name="clients1">
+                <list>
+                    <ref bean="client"/>
+                    <ref bean="client"/>
+                </list>
+        </constructor-arg>
+        <constructor-arg ref="cacheEventLogger"/>
     </bean>
-    <bean id="client" class="ru.nik.Client">
+    <bean id="client" class="ru.nik.Client" scope="prototype">
 
-        <constructor-arg value="Ima"/>
-        <constructor-arg value="Login"/>
+        <property name="name" value="${Client.name}"/>
+        <property name="login" value="${Client.login}"/>
     </bean>
-    <bean id="consoleEventLogger" class="ru.nik.ConsoleEventLogger"/>
     <bean id="event" class="ru.nik.Event" scope="prototype">
-        <constructor-arg value="Den"/>
+        <constructor-arg value="June"/>
     </bean>
-    <bean id="dateaFormat" class="java.text.DateFormat"
-    factory-method="getDateInstance"/>
+    <bean id="event1" class="ru.nik.Event" scope="prototype">
+        <constructor-arg value="Jule"/>
+    </bean>
+    <bean id="event2" class="ru.nik.Event" scope="prototype">
+        <constructor-arg value="Sept"/>
+    </bean>
 </beans>

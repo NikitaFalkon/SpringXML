@@ -1,29 +1,43 @@
 package ru.nik;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+
 public class App {
-    Client client;
-    ConsoleEventLogger consoleEventLogger;
-    public App(Client client1, ConsoleEventLogger consoleEventLogger1)
+    List<Client> clients;
+    CacheEventLogger cacheEventLogger;
+
+    public App(List<Client> clients1, CacheEventLogger cacheEventLogger1)
     {
-        this.consoleEventLogger=consoleEventLogger1;
-        this.client=client1;
+        this.cacheEventLogger=cacheEventLogger1;
+        this.clients=clients1;
+        WriteClients();
     }
+    public void WriteClients()
+    {
+        for (Client client: this.clients)
+        {
+            System.out.println(client.getLogin());
+        }
+    }
+
     public void logEvent(Event event)
     {
-        //String som = something.replaceAll(client.getName(), client.getLogin());
-        consoleEventLogger.logEvent(event);
+        cacheEventLogger.logEvent(event);
     }
     public static void main(String[] args) {
-        ApplicationContext  ctx = new ClassPathXmlApplicationContext("context");
+        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("context");
         App app = ctx.getBean("app", App.class);
         Event event = ctx.getBean("event", Event.class);
+        Event event1 = ctx.getBean("event1", Event.class);
+        Event event2 = ctx.getBean("event2", Event.class);
         app.logEvent(event);
-        //ctx.close();
-        //App app = new App();
-        //app.client = new Client("Ia","Login");
-        //app.consoleEventLogger = new ConsoleEventLogger();
-        //app.logEvent("For some user Ima");
+        app.logEvent(event1);
+        app.logEvent(event2);
+        ctx.close();
     }
 }

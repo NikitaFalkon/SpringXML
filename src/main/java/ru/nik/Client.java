@@ -18,9 +18,9 @@ public class Client {
     public void setName(String name) {
         this.name = name;
     }
-    public Client(String name, String login)
+    /*public Client(String name, String login)
     {
         this.login = login;
         this.name = name;
-    }
+    }*/
 }
